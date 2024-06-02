@@ -14,7 +14,7 @@ defmodule AuroraCGP.Application do
       # Start the Telemetry supervisor
       AuroraCGPWeb.Telemetry,
       # Start the Ecto projection repository
-      AuroraCGP.Projection.Repo,
+      AuroraCGP.Projector.Repo,
       # Start the PubSub system
       {Phoenix.PubSub, name: AuroraCGP.PubSub},
       # Start Finch

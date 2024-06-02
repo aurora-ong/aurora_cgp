@@ -53,6 +53,7 @@ defmodule AuroraCGP.MixProject do
       {:commanded_eventstore_adapter, "~> 1.4"},
       {:ex_fontawesome, "~> 0.7.2"},
       {:commanded_ecto_projections, "~> 1.4"},
+      {:pbkdf2_elixir, "~> 2.0"}
     ]
   end
 
@@ -64,9 +65,9 @@ defmodule AuroraCGP.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup", "assets.setup", "assets.build"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      setup: ["deps.get", "db.setup", "assets.setup", "assets.build"],
+      "db.setup": ["event_store.create", "event_store.init", "ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
+      "db.reset": ["ecto.drop", "event_store.drop", "db.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["tailwind default", "esbuild default"],

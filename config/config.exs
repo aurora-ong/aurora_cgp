@@ -9,7 +9,7 @@ import Config
 
 config :aurora_cgp,
   namespace: AuroraCGP,
-  ecto_repos: [AuroraCGP.Projection.Repo],
+  ecto_repos: [AuroraCGP.Projector.Repo],
   event_stores: [AuroraCGP.EventStore]
 
 # Configures the endpoint

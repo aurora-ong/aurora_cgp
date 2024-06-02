@@ -13,7 +13,7 @@ config :aurora_cgp, AuroraCGP.EventStore,
   pool_size: 10
 
 # Configure your projection database
-config :aurora_cgp, AuroraCGP.Projection.Repo,
+config :aurora_cgp, AuroraCGP.Projector.Repo,
   username: "postgres",
   password: "aurora_cgp",
   hostname: "localhost",

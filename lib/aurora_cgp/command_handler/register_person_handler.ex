@@ -16,7 +16,7 @@ defmodule AuroraCGP.CommandHandler.RegisterPersonHandler do
     }
   end
 
-  def handle(%Person{} = _aggregate, %RegisterPerson{} = _command) do
+  def handle(%{} = _aggregate, %RegisterPerson{} = _command) do
     {:error, :person_already_exists}
   end
 end

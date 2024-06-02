@@ -52,7 +52,8 @@ defmodule AuroraCGPWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {AuroraCGPWeb.Layouts, :app}
+        layout: {AuroraCGPWeb.Layouts, :root},
+        container: {:main, class: "app-container"}
 
       unquote(html_helpers())
     end

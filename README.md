@@ -26,8 +26,6 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 ## Enviar comandos
 
 Registrar persona (usuario en el sistema)
-RegisterPerson
- defstruct [:person_id, :person_name, :person_mail]
-`:ok = AuroraCGP.dispatch(%AuroraCGP.Command.RegisterPerson{person_id: "222", person_name: "Pedro Diaz", person_mail: "p.diaz@gmail.com"})`
+`:ok = AuroraCGP.dispatch(%AuroraCGP.Command.RegisterPerson{person_id: "333", person_name: "Pedro Diaz", person_mail: "p.diaz@gmail.com"})`
 
 

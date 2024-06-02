@@ -5,6 +5,8 @@ defmodule AuroraCGP.Projector.Model.Person do
   schema "person_table" do
     field :person_name, :string
     field :person_mail, :string
+    field :person_password, :string, virtual: true, redact: true
+    field :person_secret, :string, redact: true
     field :created_at, :utc_datetime_usec
     field :updated_at, :utc_datetime_usec
   end

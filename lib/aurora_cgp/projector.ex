@@ -1,7 +1,7 @@
 defmodule AuroraCGP.Projector do
   use Commanded.Projections.Ecto,
     application: AuroraCGP,
-    repo: AuroraCGP.Projection.Repo,
+    repo: AuroraCGP.Projector.Repo,
     name: "aurora_gcp-projector-main"
 
   alias AuroraCGP.Event.PersonRegistered
@@ -15,12 +15,10 @@ defmodule AuroraCGP.Projector do
         person_id: person_id,
         person_name: person_name,
         person_mail: person_mail,
+        person_secret: Pbkdf2.hash_pwd_salt("test"),
         created_at: metadata.created_at,
         updated_at: metadata.created_at
       }
-
-      IO.inspect("Proyectando..")
-      IO.inspect(projection)
 
       Ecto.Multi.insert(multi, :person_table, projection)
     end

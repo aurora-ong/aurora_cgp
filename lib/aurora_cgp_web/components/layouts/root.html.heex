@@ -11,9 +11,10 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class="">
-    <div class="flex w-full glass gap-5 mx-5 my-5">
-      <%= @inner_content %>  
-    </div>    
+  <body class="antialiased p-0 m-0 flex h-screen w-screen text-white fill-white font-montserrat">
+    <div class="mx-auto max-w-2xl absolute">
+      <.flash_group flash={@flash} />
+    </div>
+    <%= @inner_content %>  
   </body>
 </html>
