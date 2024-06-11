@@ -11,21 +11,31 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 
 1. Ejecutar `mix deps.get`
 2. Correr instancia DB 
-`docker run --env=POSTGRES_PASSWORD=aurora -p 4500:5432 --name=aurora-commanded -d postgres:latest`
+`docker run --env=POSTGRES_PASSWORD=aurora_cgp -p 4500:5432 --name=aurora-cgp -d postgres:latest`
 3. Comprobar configuración de DBs (son 2) `config/config.exs`
-4. Inicializar eventstore DB (donde se guardan los eventos)
-* `mix do event_store.create`
-* `mix do event_store.init`
-5. Inicializar projector DB (donde se projecta la data)
-* `mix ecto.create`
-* `mix ecto.migrate`
-
-6. Ejecutar aplicación utilizando iex `iex -S mix phx.server`
-7. Visitar [`localhost:4000`](http://localhost:4000) para ver la interfaz del ERP
+4. Inicializar DB 
+`mix db.setup`
+5. Ejecutar aplicación utilizando iex `iex -S mix phx.server`
+6. Visitar [`localhost:4000`](http://localhost:4000) para ver la interfaz del ERP
 
 ## Enviar comandos
 
-Registrar persona (usuario en el sistema)
+### Registrar persona (usuario en el sistema)
+
+`:ok = AuroraCGP.dispatch(%AuroraCGP.Command.RegisterPerson{person_id: "111", person_name: "Camila Saez", person_mail: "c.saez@gmail.com"})`
+
 `:ok = AuroraCGP.dispatch(%AuroraCGP.Command.RegisterPerson{person_id: "333", person_name: "Pedro Diaz", person_mail: "p.diaz@gmail.com"})`
 
+### Crear una unidad organizacional (usuario en el sistema)
+
+`:ok = AuroraCGP.dispatch(%AuroraCGP.Command.CreateOU{ou_id: "raiz", ou_name: "Raiz ORG", ou_description: "Creada para enraizar", ou_goal: "Fomentar la cultura de raíz"})`
+
+`:ok = AuroraCGP.dispatch(%AuroraCGP.Command.CreateOU{ou_id: "raiz.sub", ou_name: "SUB Departamento finanzas", ou_description: "Creada para financiar", ou_goal: "Financiar la organización"})`
+
+### Iniciar una membresía
+
+`:ok = AuroraCGP.dispatch(%AuroraCGP.Command.StartMembership{ou_id: "raiz", person_id: "111"})`
+
+`:ok = AuroraCGP.dispatch(%AuroraCGP.Command.StartMembership{ou_id: "raiz", person_id: "333"})`
+`:ok = AuroraCGP.dispatch(%AuroraCGP.Command.StartMembership{ou_id: "raiz.sub", person_id: "333"})`
 

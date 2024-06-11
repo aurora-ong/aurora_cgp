@@ -128,14 +128,15 @@
 
   <section class="card w-full flex flex-row h-fit justify-center items-center">
     <div class="flex flex-col grow">
-      <h1 class="text-4xl">Aurora ONG</h1>
-      <h2>aurora.ong</h2>
-      <h2>Objetivo x</h2>
+      <h2 class="bg-white w-fit text-black px-2 py-0.5 font-bold rounded"><%= @context.ou_id %></h2>
+      <h1 class="text-4xl"><%= @context.ou_name %></h1>
+      <h2><%= @context.ou_goal %></h2>
+     
     </div>
     <div>
       <button class="justify-center items-center text-lg primary">
-        <FontAwesome.LiveView.icon name="hand" type="solid" class="h-5 w-5" />
-        Gobernar
+        <FontAwesome.LiveView.icon name="arrows-up-down" type="solid" class="h-5 w-5" />
+        Navegar
       </button>
     </div>
   </section>
