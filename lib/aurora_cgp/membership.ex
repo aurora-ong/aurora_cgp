@@ -11,7 +11,7 @@ defmodule AuroraCGP.Projector.Membership do
   ## Database getters
 
   def get_all_membership_by_uo(ou_id) do
-    query = from(m in Membership, where: m.ou_id == ^ou_id)
+    query = from(m in Membership, where: m.ou_id == ^ou_id, preload: [:ou, :person])
     Repo.all(query)
   end
 

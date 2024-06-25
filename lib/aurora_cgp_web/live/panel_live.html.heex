@@ -8,10 +8,12 @@
   <hr />
   <div class="grow my-5 overflow-y-auto px-2.5">
     <ul class="gap-y-2 flex flex-col text-lg menu">
-      <li class="">
-        <FontAwesome.LiveView.icon name="house" type="solid" class="h-7 w-7" />
-        Inicio
-      </li>
+      <.link patch={~p"/panel/inicio?context=#{@context}"} replace>
+        <li class="">
+          <FontAwesome.LiveView.icon name="house" type="solid" class="h-7 w-7" />
+          Inicio
+        </li>
+      </.link>
       <li class="">
         <FontAwesome.LiveView.icon name="newspaper" type="solid" class="h-7 w-7" />
         Comunicados
@@ -20,10 +22,20 @@
         <FontAwesome.LiveView.icon name="calendar" type="regular" class="h-7 w-7" />
         Eventos
       </li>
-      <li class="active">
-        <FontAwesome.LiveView.icon name="users-between-lines" type="solid" class="h-7 w-7" />
-        Miembros
-      </li>
+      <.link patch={~p"/panel/miembros?context=raiz"} replace>
+        <li class="active">
+          <FontAwesome.LiveView.icon name="users-between-lines" type="solid" class="h-7 w-7" />
+          Miembros
+        </li>
+      </.link>
+
+      <.link patch={~p"/panel/miembros?context=raiz.sub"} replace>
+        <li class="active">
+          <FontAwesome.LiveView.icon name="users-between-lines" type="solid" class="h-7 w-7" />
+          Miembros otro
+        </li>
+      </.link>
+
       <li class="">
         <FontAwesome.LiveView.icon name="bolt" type="solid" class="h-7 w-7" />
         Poder
@@ -111,7 +123,7 @@
           </div>
           <div>
             <.link href={~p"/persons/log_out"} method="delete"
-            class="iconbutton text-white flex flex-row gap-3 justify-center items-center  hover:fill-white">
+              class="iconbutton text-white flex flex-row gap-3 justify-center items-center  hover:fill-white">
               <FontAwesome.LiveView.icon name="arrow-right-from-bracket" type="solid" class="fill-black h-7 w-7" />
             </.link>
           </div>
@@ -120,59 +132,49 @@
           <.link href={~p"/persons/log_in"} class="iconbutton">
             <FontAwesome.LiveView.icon name="user" type="solid" class="h-7 w-7" />
           </.link>
-        <% end %>
+          <% end %>
 
 
     </section>
   </div>
 
-  <section class="card w-full flex flex-row h-fit justify-center items-center">
-    <div class="flex flex-col grow">
-      <h2 class="bg-white w-fit text-black px-2 py-0.5 font-bold rounded"><%= @context.ou_id %></h2>
-      <h1 class="text-4xl"><%= @context.ou_name %></h1>
-      <h2><%= @context.ou_goal %></h2>
-     
-    </div>
-    <div>
-      <button class="justify-center items-center text-lg primary">
-        <FontAwesome.LiveView.icon name="arrows-up-down" type="solid" class="h-5 w-5" />
-        Navegar
-      </button>
-    </div>
-  </section>
+
+  <.live_component module={PanelHeaderComponent} id="header" context={@context} />
+
 
   <div class="flex flex-row gap-2">
-    <section class="card w-4/6 flex flex-col h-fit justify-center items-center">
-      <div class="flex w-full h-12 flex-row">
-        <div class="flex w-fit grow">
-          <ul class="flex flex-row gap-3 items-center tabs">
-            <li>Todos</li>
-            <li class="active">Nuevos</li>
-            <li>Activos</li>
-            <li>Inactivos</li>
-          </ul>
-        </div>
-        <div class="flex w-fit">
 
-          <button class="justify-center items-center text-lg primary">
-            <FontAwesome.LiveView.icon name="hand" type="solid" class="h-5 w-5" />
-            Gobernar
-          </button>
-        </div>
-      </div>
-      <hr class="my-5" />
-    </section>
-    <section class="w-4/12 flex flex-col h-fit justify-center items-center card">
-      <div class="flex flex-row justify-between content-between items-center w-full">
-        <h2 class="text-lg font-semibold">Panel lateral</h2>
-        <FontAwesome.LiveView.icon name="xmark" type="solid" class="h-5 w-5" />
-      </div>
-      <hr class="my-5" />
-      <div class="flex flex-row justify-between content-between">
-        <h2 class="text-xl font-semibold">Detalles</h2>
-      </div>
+    <%= case @module do %>
 
-    </section>
+      <% "inicio" -> %>
+
+        <.live_component module={HomePanelComponent} id="hero" context={@context} />
+
+        <% "miembros" -> %>
+
+          <.live_component module={MembersPanelComponent} id="members" context={@context} />
+          <% _ -> %>
+
+            <h1>No disponible</h1>
+
+            <% end %>
+
+
+
+
+
+
+              <section class="w-4/12 flex flex-col h-fit justify-center items-center card">
+                <div class="flex flex-row justify-between content-between items-center w-full">
+                  <h2 class="text-lg font-semibold">Panel lateral</h2>
+                  <FontAwesome.LiveView.icon name="xmark" type="solid" class="h-5 w-5" />
+                </div>
+                <hr class="my-5" />
+                <div class="flex flex-row justify-between content-between">
+                  <h2 class="text-xl font-semibold">Detalles</h2>
+                </div>
+
+              </section>
   </div>
 </div>
 

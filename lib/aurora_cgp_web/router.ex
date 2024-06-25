@@ -76,6 +76,8 @@ defmodule AuroraCGPWeb.Router do
     live_session :panel,
       on_mount: [{AuroraCGPWeb.Auth, :mount_current_person}] do
         live "/", PanelLive, :index
+        live "/inicio", PanelLive, :index
+        live "/miembros", PanelLive, :index
     end
   end
 end

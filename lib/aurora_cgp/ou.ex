@@ -18,4 +18,8 @@ defmodule AuroraCGP.Projector.OU do
     Repo.all(OU)
   end
 
+  def get_ou_by_id(id) do
+    Repo.get(OU, id)
+  end
+
 end
