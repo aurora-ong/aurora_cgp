@@ -2,7 +2,17 @@ defmodule MembersPanelComponent do
   # In Phoenix apps, the line is typically: use MyAppWeb, :live_component
   use Phoenix.LiveComponent
 
+  def mount(socket) do
+
+    socket =
+      socket
+      |> assign(:filter, "all")
+
+    {:ok, socket}
+  end
+
   def update(assigns, socket) do
+    IO.inspect("Uodate")
 
     socket =
       socket
@@ -15,16 +25,17 @@ defmodule MembersPanelComponent do
   def render(assigns) do
     ~H"""
     <section class="card w-4/6 flex flex-col h-fit justify-center items-center">
+    <%= inspect(@filter) %>
       <div class="flex w-full h-12 flex-row">
         <div class="flex w-fit grow">
           <ul class="flex flex-row gap-3 items-center tabs">
-            <li>Todos</li>
+            <li class={if @filter == "all", do: "active", else: ""}><a phx-click="update_filter" phx-value-filter="all" phx-target={@myself}>Todos</a></li>
 
-            <li class="active">Nuevos</li>
+            <li class={if @filter == "new", do: "active", else: ""}><a phx-click="update_filter" phx-value-filter="new" phx-target={@myself}>Nuevos</a></li>
 
-            <li>Activos</li>
+            <li class={if @filter == "active", do: "active", else: ""}><a phx-click="update_filter" phx-value-filter="active" phx-target={@myself}>Activos</a></li>
 
-            <li>Inactivos</li>
+            <li class={if @filter == "inactive", do: "active", else: ""}><a phx-click="update_filter" phx-value-filter="inactive" phx-target={@myself}>Inactivos</a></li>
           </ul>
         </div>
 
@@ -43,5 +54,11 @@ defmodule MembersPanelComponent do
        <% end %>
     </section>
     """
+  end
+
+  def handle_event("update_filter", %{"filter" => filter}, socket) do
+    IO.inspect(filter, label: "QQ")
+
+    {:noreply, assign(socket, filter: filter)}
   end
 end
