@@ -1,11 +1,14 @@
 # AuroraCGP
 
-ERP con tecnología política que implementa el Modelo Aurora. Más información en https://aurora.ong
+ERP con tecnología política que implementa el Modelo Aurora. 
 
+Más información en https://aurora.ong
+Para contribuir contacta a Pavel Delgado (p.delgado@aurora.ong)
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Requerimientos
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+* Docker
+* Elixir
 
 ## Instrucciones 
 

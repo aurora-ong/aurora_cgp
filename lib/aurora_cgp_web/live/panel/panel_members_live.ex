@@ -3,7 +3,6 @@ defmodule MembersPanelComponent do
   use Phoenix.LiveComponent
 
   def mount(socket) do
-
     socket =
       socket
       |> assign(:filter, "all")
@@ -17,7 +16,10 @@ defmodule MembersPanelComponent do
     socket =
       socket
       |> assign(:context, assigns.context)
-      |> assign(:members, AuroraCGP.Projector.Membership.get_all_membership_by_uo(assigns.context))
+      |> assign(
+        :members,
+        AuroraCGP.Projector.Membership.get_all_membership_by_uo(assigns.context)
+      )
 
     {:ok, socket}
   end
@@ -25,17 +27,27 @@ defmodule MembersPanelComponent do
   def render(assigns) do
     ~H"""
     <section class="card w-4/6 flex flex-col h-fit justify-center items-center">
-    <%= inspect(@filter) %>
+      <%= inspect(@filter) %>
       <div class="flex w-full h-12 flex-row">
         <div class="flex w-fit grow">
           <ul class="flex flex-row gap-3 items-center tabs">
-            <li class={if @filter == "all", do: "active", else: ""}><a phx-click="update_filter" phx-value-filter="all" phx-target={@myself}>Todos</a></li>
+            <li class={if @filter == "all", do: "active", else: ""}>
+              <a phx-click="update_filter" phx-value-filter="all" phx-target={@myself}>Todos</a>
+            </li>
 
-            <li class={if @filter == "new", do: "active", else: ""}><a phx-click="update_filter" phx-value-filter="new" phx-target={@myself}>Nuevos</a></li>
+            <li class={if @filter == "new", do: "active", else: ""}>
+              <a phx-click="update_filter" phx-value-filter="new" phx-target={@myself}>Nuevos</a>
+            </li>
 
-            <li class={if @filter == "active", do: "active", else: ""}><a phx-click="update_filter" phx-value-filter="active" phx-target={@myself}>Activos</a></li>
+            <li class={if @filter == "active", do: "active", else: ""}>
+              <a phx-click="update_filter" phx-value-filter="active" phx-target={@myself}>Activos</a>
+            </li>
 
-            <li class={if @filter == "inactive", do: "active", else: ""}><a phx-click="update_filter" phx-value-filter="inactive" phx-target={@myself}>Inactivos</a></li>
+            <li class={if @filter == "inactive", do: "active", else: ""}>
+              <a phx-click="update_filter" phx-value-filter="inactive" phx-target={@myself}>
+                Inactivos
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -46,12 +58,46 @@ defmodule MembersPanelComponent do
         </div>
       </div>
        <hr class="my-5" />
+      <div class="relative overflow-x-auto">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                Nombre miembro
+              </th>
 
-       <%= for m <- @members do %>
+              <th scope="col" class="px-6 py-3">
+                Estado miembro
+              </th>
 
-       <%= m.person.person_id %>
-        <%= m.person.person_name %>
-       <% end %>
+              <th scope="col" class="px-6 py-3">
+                Miembro desde
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%= for m <- @members do %>
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th
+                  scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  <%= m.person.person_name %>
+                </th>
+
+                <td class="px-6 py-4">
+                  <%= m.membership_status %>
+                </td>
+
+                <td class="px-6 py-4">
+                  <%= m.created_at %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </section>
     """
   end

@@ -53,7 +53,8 @@ defmodule AuroraCGP.MixProject do
       {:commanded_eventstore_adapter, "~> 1.4"},
       {:ex_fontawesome, "~> 0.7.2"},
       {:commanded_ecto_projections, "~> 1.4"},
-      {:pbkdf2_elixir, "~> 2.0"}
+      {:pbkdf2_elixir, "~> 2.0"},
+      {:faker, "~> 0.18.0"}
     ]
   end
 

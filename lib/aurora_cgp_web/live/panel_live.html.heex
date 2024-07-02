@@ -22,17 +22,10 @@
         <FontAwesome.LiveView.icon name="calendar" type="regular" class="h-7 w-7" />
         Eventos
       </li>
-      <.link patch={~p"/panel/miembros?context=raiz"} replace>
+      <.link patch={~p"/panel/miembros?context=#{@context}"} replace>
         <li class="active">
           <FontAwesome.LiveView.icon name="users-between-lines" type="solid" class="h-7 w-7" />
           Miembros
-        </li>
-      </.link>
-
-      <.link patch={~p"/panel/miembros?context=raiz.sub"} replace>
-        <li class="active">
-          <FontAwesome.LiveView.icon name="users-between-lines" type="solid" class="h-7 w-7" />
-          Miembros otro
         </li>
       </.link>
 
