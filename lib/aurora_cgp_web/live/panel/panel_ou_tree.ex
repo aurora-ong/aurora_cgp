@@ -1,7 +1,6 @@
 defmodule AuroraCGPWeb.PanelOUTreeComponent do
-  use Phoenix.LiveComponent
-  use AuroraCGPWeb, :live_view
-  alias AuroraCGP.Utils.OUTree
+  use AuroraCGPWeb, :live_component
+
   alias Phoenix.LiveView.JS
 
   def update(assigns, socket) do

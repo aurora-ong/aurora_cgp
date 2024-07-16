@@ -12,7 +12,7 @@ defmodule AuroraCGPWeb.PanelLive do
   def handle_params(params, uri, socket) do
     socket =
       socket
-      |> assign(:context, parse_context(params))
+      |> assign(:context, parse_context(params, socket))
       |> assign(:module, extract_module_from_uri(uri))
       |> assign(:show_ou_select, parse_ou_select(params))
       |> assign(:uri, uri)
@@ -61,22 +61,32 @@ defmodule AuroraCGPWeb.PanelLive do
     case params["show-tree"] do
       "true" ->
         true
+
       _ ->
         false
     end
   end
 
-  defp parse_context(params) do
+  defp parse_context(params, socket) do
     case params["context"] do
       context when is_bitstring(context) ->
         context
+
       _ ->
-        get_default_context()
+        get_default_context(socket)
     end
   end
 
-  defp get_default_context() do
-    "raiz"
+  defp get_default_context(socket) do
+    default = Enum.at(socket.assigns.ou_tree, 0).ou_id
+
+    case default do
+      default when is_bitstring(default) ->
+        default
+
+      _ ->
+        IO.inspect("Error")
+    end
   end
 
   defp extract_module_from_uri(uri) do
