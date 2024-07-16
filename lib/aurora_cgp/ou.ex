@@ -11,7 +11,8 @@ defmodule AuroraCGP.Projector.OU do
   ## Database getters
 
   def get_all_active_ou() do
-    Repo.all(OU, where: ou_status = :active)
+    query = from(ou in OU, where: ou.ou_status == :active, preload: [:ou, :person])
+    Repo.all(query)
   end
 
   def get_all_ou() do

@@ -8,7 +8,7 @@ defmodule AuroraCGP.Projector.Persons do
   alias AuroraCGP.Projector.Repo
   alias AuroraCGP.Projector.Model.Person
 
-  alias AuroraCGP.Auth.{AuthToken, AuthNotifier}
+  alias AuroraCGP.Auth.AuthToken
 
   ## Database getters
 
@@ -124,21 +124,21 @@ defmodule AuroraCGP.Projector.Persons do
 
   """
   def deliver_person_confirmation_instructions(
-        %Person{} = person,
+        %Person{} = _person,
         confirmation_url_fun
       )
       when is_function(confirmation_url_fun, 1) do
-    if person.confirmed_at do
-      {:error, :already_confirmed}
-    else
-      {encoded_token, person_token} = AuthToken.build_email_token(person, "confirm")
-      Repo.insert!(person_token)
+    # if person.confirmed_at do
+    #   {:error, :already_confirmed}
+    # else
+    #   {encoded_token, person_token} = AuthToken.build_email_token(person, "confirm")
+    #   Repo.insert!(person_token)
 
-      PersonNotifier.deliver_confirmation_instructions(
-        person,
-        confirmation_url_fun.(encoded_token)
-      )
-    end
+    #   PersonNotifier.deliver_confirmation_instructions(
+    #     person,
+    #     confirmation_url_fun.(encoded_token)
+    #   )
+    # end
   end
 
 end

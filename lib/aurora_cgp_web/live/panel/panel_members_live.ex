@@ -27,7 +27,7 @@ defmodule MembersPanelComponent do
   def render(assigns) do
     ~H"""
     <section class="card w-4/6 flex flex-col h-fit justify-center items-center">
-      <%= inspect(@filter) %>
+
       <div class="flex w-full h-12 flex-row">
         <div class="flex w-fit grow">
           <ul class="flex flex-row gap-3 items-center tabs">
@@ -58,9 +58,9 @@ defmodule MembersPanelComponent do
         </div>
       </div>
        <hr class="my-5" />
-      <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <div class="relative overflow-x-auto w-full">
+        <table class="w-full text-md text-left text-gray-500">
+          <thead class="text-gray-700 uppercase bg-gray-50 text-center">
             <tr>
               <th scope="col" class="px-6 py-3">
                 Nombre miembro
@@ -78,19 +78,19 @@ defmodule MembersPanelComponent do
 
           <tbody>
             <%= for m <- @members do %>
-              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+              <tr class="bg-gray-200 border-b">
                 <th
                   scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                 >
                   <%= m.person.person_name %>
                 </th>
 
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-center">
                   <%= m.membership_status %>
                 </td>
 
-                <td class="px-6 py-4">
+                <td class="px-6 py-4 text-center">
                   <%= m.created_at %>
                 </td>
               </tr>

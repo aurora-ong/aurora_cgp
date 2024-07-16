@@ -1,12 +1,14 @@
 defmodule PanelHeaderComponent do
   use Phoenix.LiveComponent
+  alias Phoenix.LiveView.JS
 
   def update(assigns, socket) do
-
     socket =
       socket
       |> assign(:context, assigns.context)
+      |> assign(:uri, assigns.uri)
       |> assign(:ou, AuroraCGP.Projector.OU.get_ou_by_id(assigns.context))
+      |> assign(:ou_list, AuroraCGP.Projector.OU.get_all_ou())
 
     {:ok, socket}
   end
@@ -29,5 +31,10 @@ defmodule PanelHeaderComponent do
       </div>
     </section>
     """
+  end
+
+  def show_navigate(js \\ %JS{}) do
+    js
+    |> JS.toggle_class("hidden", to: "#dropdown")
   end
 end

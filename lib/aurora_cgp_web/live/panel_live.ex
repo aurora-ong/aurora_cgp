@@ -9,14 +9,13 @@ defmodule AuroraCGPWeb.PanelLive do
     {:ok, socket}
   end
 
-  def handle_params(%{"context" => context}, uri, socket) do
-
-    IO.inspect(context, label: "PPP")
-
-
-    module = Enum.at(String.split(Enum.at(String.split(uri, "/"), -1), "?"), 0)
-
-    socket = assign(socket, :module, module)
+  def handle_params(params, uri, socket) do
+    socket =
+      socket
+      |> assign(:context, parse_context(params))
+      |> assign(:module, extract_module_from_uri(uri))
+      |> assign(:show_ou_select, parse_ou_select(params))
+      |> assign(:uri, uri)
 
     # IO.inspect(socket)
 
@@ -51,10 +50,47 @@ defmodule AuroraCGPWeb.PanelLive do
     #         end
     #     end
 
-    {:noreply, assign(socket, context: context)}
+    {:noreply, socket}
   end
 
-  defp update_ou_tree() do
-    {:ok, %{ou_tree: AuroraCGP.Projector.OU.get_all_active_ou()}}
+  # defp update_ou_tree() do
+  #   {:ok, %{ou_tree: AuroraCGP.Projector.OU.get_all_active_ou()}}
+  # end
+
+  defp parse_ou_select(params) do
+    case params["show-tree"] do
+      "true" ->
+        true
+      _ ->
+        false
+    end
+  end
+
+  defp parse_context(params) do
+    case params["context"] do
+      context when is_bitstring(context) ->
+        context
+      _ ->
+        get_default_context()
+    end
+  end
+
+  defp get_default_context() do
+    "raiz"
+  end
+
+  defp extract_module_from_uri(uri) do
+    module = Enum.at(String.split(Enum.at(String.split(uri, "/"), -1), "?"), 0)
+
+    case module do
+      "panel" ->
+        "inicio"
+
+      "" ->
+        "inicio"
+
+      _ ->
+        module
+    end
   end
 end

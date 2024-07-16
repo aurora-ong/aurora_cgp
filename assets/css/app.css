@@ -106,6 +106,17 @@
         @apply bg-fuchsia-500;
     }
 
+    div.menu > a.link {
+        @apply flex flex-row w-full hover:bg-fuchsia-500/75 py-3 px-5 rounded-lg cursor-pointer fill-white gap-3
+    }
+
+    div.menu > a.link.active {
+        @apply bg-fuchsia-500/75
+    }
+
+    div.menu {
+        @apply grow my-5 overflow-y-auto px-2.5 gap-y-2 flex flex-col text-lg 
+    }
 
 
 
