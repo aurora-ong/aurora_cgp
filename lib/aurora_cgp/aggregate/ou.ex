@@ -16,7 +16,6 @@ defmodule AuroraCGP.Aggregate.OU do
   end
 
   def apply(%OU{} = ou, %MembershipStarted{person_id: person_id}) do
-    IO.inspect(ou, label: "apply")
     %OU{ ou |
       ou_membership: Map.put(ou.ou_membership, person_id, :junior)
     }

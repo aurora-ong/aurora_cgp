@@ -85,7 +85,9 @@ defmodule AuroraCGPWeb.PanelLive do
         default
 
       _ ->
-        IO.inspect("Error")
+        socket
+        |> put_flash(:error, "No se encontró ninguna unidad organizacional")
+        |> push_patch(to: "/")
     end
   end
 
@@ -102,5 +104,11 @@ defmodule AuroraCGPWeb.PanelLive do
       _ ->
         module
     end
+  end
+
+  @impl true
+  def handle_info(msg, socket) do
+    IO.inspect(msg, label: "Actualizando PUBSUB")
+    {:noreply, socket}
   end
 end

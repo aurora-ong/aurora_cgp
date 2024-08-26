@@ -1,9 +1,11 @@
 defmodule AuroraCGP do
-  use Commanded.Application, otp_app: :aurora_cgp,
-  event_store: [
-    adapter: Commanded.EventStore.Adapters.EventStore,
-    event_store: AuroraCGP.EventStore
-  ]
+  use Commanded.Application,
+    otp_app: :aurora_cgp,
+    event_store: [
+      adapter: Commanded.EventStore.Adapters.EventStore,
+      event_store: AuroraCGP.EventStore
+    ]
+
   # pubsub: [
   #   phoenix_pubsub: [
   #     adapter: Phoenix.PubSub.PG2,
@@ -11,6 +13,5 @@ defmodule AuroraCGP do
   #   ]
   # ]
 
-router(AuroraCGP.Router)
-
+  router(AuroraCGP.Router)
 end

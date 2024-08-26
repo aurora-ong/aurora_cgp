@@ -10,9 +10,6 @@ defmodule AuroraCGP.CommandHandler.CreateOUHandler do
       ^ou_id ->
         %OUCreated{ou_id: ou_id, ou_name: ou_name, ou_goal: ou_goal, ou_description: ou_description}
       parent ->
-        IO.inspect(parent, name: "Parent")
-        IO.inspect(AuroraCGP.aggregate_state(OU, parent), name: "Parent")
-
         case AuroraCGP.aggregate_state(OU, parent) do
           %OU{ou_status: :active} ->
             %OUCreated{ou_id: ou_id, ou_name: ou_name, ou_goal: ou_goal, ou_description: ou_description}

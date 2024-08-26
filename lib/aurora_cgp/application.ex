@@ -8,9 +8,6 @@ defmodule AuroraCGP.Application do
   @impl true
   def start(_type, _args) do
     children = [
-
-
-
       # Start the Telemetry supervisor
       AuroraCGPWeb.Telemetry,
       # Start the Ecto projection repository

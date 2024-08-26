@@ -62,7 +62,7 @@ defmodule AuroraCGP.Projector do
 
   @impl Commanded.Projections.Ecto
   def after_update(event, _metadata, _changes) do
-    # Phoenix.PubSub.broadcast(AuroraCommanded.PubSub, "projector_update", :uo)
+    Phoenix.PubSub.broadcast(AuroraCGP.PubSub, "projector_update", :uo)
     IO.inspect(event, label: "Notificando")
     :ok
   end

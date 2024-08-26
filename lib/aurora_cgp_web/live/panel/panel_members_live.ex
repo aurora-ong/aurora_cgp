@@ -2,7 +2,9 @@ defmodule MembersPanelComponent do
   # In Phoenix apps, the line is typically: use MyAppWeb, :live_component
   use Phoenix.LiveComponent
 
+  @impl true
   def mount(socket) do
+    Phoenix.PubSub.subscribe(AuroraCGP.PubSub, "projector_update")
     socket =
       socket
       |> assign(:filter, "all")
@@ -11,7 +13,6 @@ defmodule MembersPanelComponent do
   end
 
   def update(assigns, socket) do
-    IO.inspect("Uodate")
 
     socket =
       socket
@@ -62,6 +63,9 @@ defmodule MembersPanelComponent do
         <table class="w-full text-md text-left text-gray-500">
           <thead class="text-gray-700 uppercase bg-gray-50 text-center">
             <tr>
+            <th scope="col" class="px-6 py-3">
+                Id
+              </th>
               <th scope="col" class="px-6 py-3">
                 Nombre miembro
               </th>
@@ -79,9 +83,16 @@ defmodule MembersPanelComponent do
           <tbody>
             <%= for m <- @members do %>
               <tr class="bg-gray-200 border-b">
+
+              <th
+                  scope="row"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-center"
+                >
+                  <%= m.person.person_id %>
+                </th>
                 <th
                   scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
+                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap text-center"
                 >
                   <%= m.person.person_name %>
                 </th>
@@ -106,5 +117,11 @@ defmodule MembersPanelComponent do
     IO.inspect(filter, label: "QQ")
 
     {:noreply, assign(socket, filter: filter)}
+  end
+
+  @impl true
+  def handle_info(msg, socket) do
+    IO.inspect(msg, label: "Actualizando PUBSUB")
+    {:noreply, socket}
   end
 end

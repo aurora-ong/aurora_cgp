@@ -19,7 +19,7 @@ defmodule AuroraCGP.MixProject do
   def application do
     [
       mod: {AuroraCGP.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :wx, :observer]
     ]
   end
 
@@ -54,7 +54,7 @@ defmodule AuroraCGP.MixProject do
       {:ex_fontawesome, "~> 0.7.2"},
       {:commanded_ecto_projections, "~> 1.4"},
       {:pbkdf2_elixir, "~> 2.0"},
-      {:faker, "~> 0.18.0"}
+      {:faker, "~> 0.18.0"},
     ]
   end
 
