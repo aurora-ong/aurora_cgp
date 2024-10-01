@@ -1,6 +1,6 @@
 # AuroraCGP
 
-ERP con tecnología política que implementa el Modelo Aurora. 
+Plataforma colaborativa con gobernanza colectiva. 
 
 Más información en https://aurora.ong
 Para contribuir contacta a Pavel Delgado (p.delgado@aurora.ong)
@@ -19,17 +19,17 @@ Para contribuir contacta a Pavel Delgado (p.delgado@aurora.ong)
 4. Inicializar DB 
 `mix db.setup`
 5. Ejecutar aplicación utilizando iex `iex -S mix phx.server`
-6. Visitar [`localhost:4000`](http://localhost:4000) para ver la interfaz del ERP
+6. Visitar [`localhost:4000`](http://localhost:4000) para acceder a la interfaz
 
 ## Enviar comandos
 
-### Registrar persona (usuario en el sistema)
+### Registrar persona
 
-`:ok = AuroraCGP.dispatch(%AuroraCGP.Command.RegisterPerson{person_id: "111", person_name: "Camila Saez", person_mail: "c.saez@gmail.com"})`
+`%AuroraCGP.Projector.Model.Person{} = AuroraCGP.Context.PersonContext.register_person!(%{person_name: "Camila Saez", person_mail: "c.saez@gmail.com"})`
 
-`:ok = AuroraCGP.dispatch(%AuroraCGP.Command.RegisterPerson{person_id: "333", person_name: "Pedro Diaz", person_mail: "p.diaz@gmail.com"})`
+`%AuroraCGP.Projector.Model.Person{} = AuroraCGP.Context.PersonContext.register_person!(%{person_name: "Pedro Diaz", person_mail: "p.diaz@gmail.com"})`
 
-### Crear una unidad organizacional (usuario en el sistema)
+### Crear una unidad organizacional
 
 `:ok = AuroraCGP.dispatch(%AuroraCGP.Command.CreateOU{ou_id: "raiz", ou_name: "Raiz ORG", ou_description: "Creada para enraizar", ou_goal: "Fomentar la cultura de raíz"})`
 

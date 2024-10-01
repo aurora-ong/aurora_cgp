@@ -2,8 +2,10 @@ defmodule AuroraCGP.Projector do
   use Commanded.Projections.Ecto,
     application: AuroraCGP,
     repo: AuroraCGP.Projector.Repo,
-    name: "aurora_gcp-projector-main"
+    name: "aurora_gcp-projector-main",
+    consistency: :strong
 
+  require Logger
 
   alias AuroraCGP.Event.{PersonRegistered, OUCreated, MembershipStarted}
   alias AuroraCGP.Projector.Model.{Person, OU, Membership}
@@ -65,5 +67,11 @@ defmodule AuroraCGP.Projector do
     Phoenix.PubSub.broadcast(AuroraCGP.PubSub, "projector_update", :uo)
     IO.inspect(event, label: "Notificando")
     :ok
+  end
+
+  @impl true
+  def error({:error, error}, event, _failure_context) do
+    Logger.error("Error al proyectar #{inspect(error)} #{inspect(event)}")
+    :skip
   end
 end

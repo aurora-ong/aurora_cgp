@@ -55,6 +55,8 @@ defmodule AuroraCGP.MixProject do
       {:commanded_ecto_projections, "~> 1.4"},
       {:pbkdf2_elixir, "~> 2.0"},
       {:faker, "~> 0.18.0"},
+      {:ecto_shortuuid, "~> 0.2"},
+      {:commanded_messaging, "~> 0.2.0"}
     ]
   end
 

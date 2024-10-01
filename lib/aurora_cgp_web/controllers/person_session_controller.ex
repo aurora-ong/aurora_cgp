@@ -1,7 +1,7 @@
 defmodule AuroraCGPWeb.PersonSessionController do
   use AuroraCGPWeb, :controller
 
-  alias AuroraCGP.Projector.Persons
+  alias AuroraCGP.Context.PersonContext
   alias AuroraCGPWeb.Auth
 
   def create(conn, params) do
@@ -11,7 +11,7 @@ defmodule AuroraCGPWeb.PersonSessionController do
   defp create(conn, %{"person" => person_params}, info) do
     %{"id" => id, "password" => password} = person_params
 
-    if person = Persons.get_person_by_id_and_password(id, password) do
+    if person = PersonContext.get_person_by_id_and_password(id, password) do
       conn
       |> put_flash(:info, info)
       |> Auth.log_in_person(person, person_params)

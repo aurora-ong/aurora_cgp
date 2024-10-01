@@ -1,4 +1,4 @@
-defmodule AuroraCGP.Projector.Persons do
+defmodule AuroraCGP.Context.PersonContext do
   @moduledoc """
   The Persons context.
   """
@@ -9,6 +9,26 @@ defmodule AuroraCGP.Projector.Persons do
   alias AuroraCGP.Projector.Model.Person
 
   alias AuroraCGP.Auth.AuthToken
+
+  def register_person(person_params) do
+    {:ok, person} =
+      person_params
+      |> AuroraCGP.Command.RegisterPerson.new()
+      |> Ecto.Changeset.apply_changes()
+      |> AuroraCGP.dispatch(consistency: :eventual, returning: :aggregate_state)
+
+      person.person_id
+  end
+
+  def register_person!(person_params) do
+    {:ok, person} =
+      person_params
+      |> AuroraCGP.Command.RegisterPerson.new()
+      |> Ecto.Changeset.apply_changes()
+      |> AuroraCGP.dispatch(consistency: :strong, returning: :aggregate_state)
+
+    get_person!(person.person_id)
+  end
 
   ## Database getters
 

@@ -4,7 +4,7 @@ defmodule AuroraCGPWeb.Auth do
   import Plug.Conn
   import Phoenix.Controller
 
-  alias AuroraCGP.Projector.Persons
+  alias AuroraCGP.Context.PersonContext
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
@@ -26,7 +26,7 @@ defmodule AuroraCGPWeb.Auth do
   if you are not using LiveView.
   """
   def log_in_person(conn, person, params \\ %{}) do
-    token = Persons.generate_person_session_token(person)
+    token = PersonContext.generate_person_session_token(person)
     person_return_to = get_session(conn, :person_return_to)
 
     conn
@@ -74,7 +74,7 @@ defmodule AuroraCGPWeb.Auth do
   """
   def log_out_person(conn) do
     person_token = get_session(conn, :person_token)
-    person_token && Persons.delete_person_session_token(person_token)
+    person_token && PersonContext.delete_person_session_token(person_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
       AuroraCGPWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
@@ -92,7 +92,7 @@ defmodule AuroraCGPWeb.Auth do
   """
   def fetch_current_person(conn, _opts) do
     {person_token, conn} = ensure_person_token(conn)
-    person = person_token && Persons.get_person_by_session_token(person_token)
+    person = person_token && PersonContext.get_person_by_session_token(person_token)
     assign(conn, :current_person, person)
   end
 
@@ -177,7 +177,7 @@ defmodule AuroraCGPWeb.Auth do
   defp mount_current_person(socket, session) do
     Phoenix.Component.assign_new(socket, :current_person, fn ->
       if person_token = session["person_token"] do
-        Persons.get_person_by_session_token(person_token)
+        PersonContext.get_person_by_session_token(person_token)
       end
     end)
   end

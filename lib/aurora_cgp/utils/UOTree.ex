@@ -18,4 +18,8 @@ defmodule AuroraCGP.Utils.OUTree do
         Enum.join(parents, ".")
     end
   end
+
+  def get_complex_level(id) do
+    Enum.count(String.split(id, "."))
+  end
 end
